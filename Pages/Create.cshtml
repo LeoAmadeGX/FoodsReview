@@ -1,0 +1,93 @@
+﻿@page
+@model CreateModel
+
+@{
+    ViewData["Title"] = "新增";
+}
+
+<h1>新增一筆資料</h1>
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReviewList[0].Convenient)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReviewList[0].FoodName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReviewList[0].Recorder)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReviewList[0].Memo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReviewList[0].RecordTime)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ReviewList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Convenient)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FoodName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Recorder)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Memo)
+                    </td>
+                    <td>
+                        @{
+                            var recordTimeFormatted = item.RecordTime.HasValue ? item.RecordTime.Value.ToString("yyyy/MM/dd") : "";
+                        }
+                        @Html.DisplayFor(modelItem => recordTimeFormatted)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">修改</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    <input asp-for="Review.Convenient"  />
+                </td>
+                <td>
+                    <input asp-for="Review.FoodName"  />
+                </td>
+                <td>
+                    <select asp-for="Review.Recorder" >
+                        <option value="Leo">Leo</option>
+                        <option value="長勝">長勝</option>
+                        <option value="Allen">Allen</option>
+                        <option value="Top">Top</option>
+                    </select>
+                </td>
+                <td>
+                    <input asp-for="Review.Memo"  />
+                </td>
+                <td>
+                    <input asp-for="Review.RecordTime" />
+                </td>
+                <td>
+                    <input type="submit" value="儲存" class="btn btn-primary" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<div>
+    <a asp-page="Index">取消新增</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

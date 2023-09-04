@@ -1,0 +1,63 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "公司訂便當黑名單";
+}
+
+<h1>公司「不訂」便當清單</h1>
+
+<p></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Review[0].Convenient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Review[0].FoodName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Review[0].Recorder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Review[0].Memo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Review[0].RecordTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Review) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Convenient)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Recorder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Memo)
+            </td>
+            <td>
+                @{
+                    var recordTimeFormatted = item.RecordTime.HasValue ? item.RecordTime.Value.ToString("yyyy/MM/dd") : "";
+                }
+                @Html.DisplayFor(modelItem => recordTimeFormatted)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">修改</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<p>
+    <a asp-page="Create" class="btn btn-primary">新增</a>
+</p>
