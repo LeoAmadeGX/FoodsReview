@@ -86,7 +86,7 @@ pipeline {
 		success {
 			emailext to: "Leo_Tsai@systemweb.com.tw",
 				subject: "jenkins RDAP2019 FoodsReviews 新版本已發布",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 FoodsReviews 因 ReleasePatch 上由 ${CommitPerson} 推送的 新commit : ${CommitMsg} \n\n現在已更新到最新版本，請確認。\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 FoodsReviews 因 master 上由以下人員 : \n${CommitPerson} \n推送的以下commit : \n${CommitMsg} \n\n\n現在已更新到最新版本，請確認。\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
 		}
 	}
 }
