@@ -11,18 +11,26 @@ pipeline {
 		
 				script {			
 					def changeSets = currentBuild.rawBuild.changeSets
+					def commitMsgList = []
+					def commitPersonList = []
 					
 					if (changeSets) {
 						for (changeSet in changeSets) {
 							for (entry in changeSet.items) {
-								CommitMsg = entry.msg
-								CommitPerson = entry.author.fullName
+								// 檢查重複人員
+								if (!commitMsgList.contains(entry.msg)) {
+									commitMsgList.add(entry.msg)
+								}
+								commitPersonList.add(entry.author.fullName)
 							}
 						}
 					} else {
-						CommitMsg = "No Commit Message found in this build."
-						CommitPerson = "Nobody"
+						commitMsgList.add("No Commit Message found in this build.")
+						commitPersonList.add("RDAdministrator")
 					}
+					CommitMsg = commitMsgList.join('\n ')
+					CommitPerson = commitPersonList.join('\n ')
+					
 					echo "${CommitPerson} Commit ${CommitMsg}"
 				}
 			}
