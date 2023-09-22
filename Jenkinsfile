@@ -80,8 +80,8 @@ pipeline {
 		failure{
 		    
 			emailext to: "Leo_Tsai@systemweb.com.tw",
-				subject: "jenkins RDAP2019 FoodsReviews 由 ${CommitPerson} 推送的 ${CommitMsg} 發版失敗\n\n已緊急使用昨日備份版本還原，請相關人員盡速處理",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
+				subject: "jenkins RDAP2019 FoodsReviews 發版失敗",
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 FoodsReviews 由以下人員 : \n${CommitPerson} \n推送的以下commit : \n${CommitMsg} \n\n發版失敗\n已緊急使用昨日備份版本還原，請相關人員盡速處理\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
 		}
 		success {
 			emailext to: "Leo_Tsai@systemweb.com.tw",
