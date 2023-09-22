@@ -20,7 +20,7 @@ namespace FoodsReview.Pages
         {
             if (_context.FoodsReview != null)
             {
-                Review = await _context.FoodsReview.ToListAsync();
+                Review = await _context.FoodsReview.OrderBy(x => x.RecordTime).ToListAsync();
             }
         }
     }
