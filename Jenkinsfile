@@ -38,9 +38,6 @@ pipeline {
 					CommitMsg = commitMsgList.join('\n')
 					CommitPerson = commitPersonList.join('\n')
 					CommitNote = commitNoteList.join('\n')
-					
-					echo "${CommitPerson} Commit ${CommitMsg}"
-					echo "$CommitList: ${CommitNote}"
 				}
 			}
 		}
@@ -51,7 +48,7 @@ pipeline {
 		}
 		stage ('備份&部署') {
             steps {
-				bat 'C:\\Jenkins\\workspace\\deploy.bat 1 "${PublishSys}"'
+				bat 'C:\\Jenkins\\workspace\\deploy.bat 1 FoodsReviews'
 			}
 		}		
 		stage ('執行SysLogin') {
