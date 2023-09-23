@@ -3,6 +3,7 @@ pipeline {
 	environment {
         CommitMsg = ""
         CommitPerson = ""
+		CommitNote = ""
 		PublishSys = "FoodsReviews"
     }
     stages {
@@ -12,27 +13,34 @@ pipeline {
 		
 				script {			
 					def changeSets = currentBuild.rawBuild.changeSets
+					def uniqueAuthors = new HashSet<String>()
 					def commitMsgList = []
 					def commitPersonList = []
+					def commitNoteList = []
 					
 					if (changeSets) {
 						for (changeSet in changeSets) {
 							for (entry in changeSet.items) {
 								// 檢查重複人員
-								if (!commitMsgList.contains(entry.author.fullName)) {
-									commitPersonList.add(entry.author.fullName)
+								if (entry.author && !uniqueAuthors.contains(entry.author.fullName)) {
+								    uniqueAuthors.add(entry.author.fullName)
+								    commitPersonList.add(entry.author.fullName)
 								}
 								commitMsgList.add(entry.msg)
+								commitNoteList.add(entry.author.fullName + ": " + entry.msg)
 							}
 						}
 					} else {
-						commitMsgList.add("No Commit Message found in this build.")
+						commitMsgList.add("Manually Execute Build Process.")
 						commitPersonList.add("RDAdministrator")
+						commitNoteList.add(RDAdministrator ": " + Manually Execute Build Process.)
 					}
 					CommitMsg = commitMsgList.join('\n')
 					CommitPerson = commitPersonList.join('\n')
+					CommitNote = commitNoteList.join('\n')
 					
 					echo "${CommitPerson} Commit ${CommitMsg}"
+					echo "$CommitList: ${CommitNote}"
 				}
 			}
 		}
@@ -82,12 +90,12 @@ pipeline {
 		    
 			emailext to: "Leo_Tsai@systemweb.com.tw",
 				subject: "jenkins RDAP2019 ${PublishSys} 發版失敗",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} 由以下人員 : \n${CommitPerson} \n推送的以下commit : \n${CommitMsg} \n\n發版失敗\n已緊急使用昨日備份版本還原，請相關人員盡速處理\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} 因為以下Commit : \n${CommitNote} \n發版失敗\n\n已緊急使用昨日備份版本還原，請相關人員盡速處理\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
 		}
 		success {
 			emailext to: "Leo_Tsai@systemweb.com.tw",
 				subject: "jenkins RDAP2019 ${PublishSys} 新版本已發布",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} 因 master 上由以下人員 : \n${CommitPerson} \n推送的以下commit : \n${CommitMsg} \n\n\n現在已更新到最新版本，請確認。\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} 因 master 上出現以下Commit : \n${CommitNote} \n推送 \n\n\n現在已更新到最新版本，請確認。\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
 		}
 	}
 }
