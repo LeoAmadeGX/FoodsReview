@@ -20,7 +20,16 @@ namespace FoodsReview.Pages
         {
             if (_context.FoodsReview != null)
             {
-                Review = await _context.FoodsReview.OrderBy(x => x.RecordTime).ToListAsync();
+                try
+                {
+                    Review = await _context.FoodsReview
+                                    .OrderBy(x => DateTime.Parse(x.RecordTime.ToString()))
+                                    .ToListAsync();
+                }
+                catch
+                {
+                    Review = await _context.FoodsReview.ToListAsync();
+                }
             }
         }
     }
