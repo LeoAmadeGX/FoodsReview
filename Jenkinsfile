@@ -6,9 +6,6 @@ pipeline {
 		CommitNote = ""
 		PublishSys = "FoodsReviews"
     }
-    options {
-        encoding('UTF-8') 
-    }
     stages {
 		stage ('取得新版(git)') {
             steps {
