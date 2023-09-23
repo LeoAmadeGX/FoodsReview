@@ -66,11 +66,11 @@ pipeline {
 						else
 						{
 							currentBuild.result = 'FAILURE'
-							error("HTTP Error ${response}: 请求失败")
+							error("HTTP Error ${response}: 請求失敗")
 						}
 					} catch (Exception e) {
 						currentBuild.result = 'FAILURE'
-						error("调用 API 时发生错误: ${e.message}")
+						error("呼叫 API 時發生錯誤: ${e.message}")
 					}
 				}
 			}
