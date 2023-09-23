@@ -7,10 +7,10 @@ pipeline {
 		PublishSys = "FoodsReviews"
     }
     stages {
-		stage ('取得新版(git)') {
+		stage ('取得新版(git)') 
             steps {
 				git branch: 'master', credentialsId: '700a1e8e-746b-4dbe-b75c-d84eface67bb', url: 'https://github.com/LeoAmadeGX/FoodsReview.git'
-		
+				
 				script {			
 					def changeSets = currentBuild.rawBuild.changeSets
 					def uniqueAuthors = new HashSet<String>()
