@@ -92,7 +92,8 @@ pipeline {
 		    
 			emailext to: "Leo_Tsai@systemweb.com.tw",
 				subject: "${PublishSys} 發版失敗 on RDAP2019 #jenkins",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}<p />RDAP2019 ${PublishSys} 因為以下Commit : <br /><strong style=color:#C31111;>${CommitNote} <br />發版失敗</strong><p />已緊急使用昨日備份版本還原，請相關人員盡速處理<p />更多資訊請由此查詢: ${env.BUILD_URL}"
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}<p />RDAP2019 ${PublishSys} 因為以下Commit : <br /><strong style=color:#C31111;>${CommitNote} <br />發版失敗</strong><p />已緊急使用昨日備份版本還原，請相關人員盡速處理<p />更多資訊請由此查詢: ${env.BUILD_URL}",
+                mimeType: 'text/html'
 		}
 		success {
 			emailext to: "Leo_Tsai@systemweb.com.tw",
