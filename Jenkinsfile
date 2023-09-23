@@ -7,7 +7,7 @@ pipeline {
 		PublishSys = "FoodsReviews"
     }
     stages {
-		stage ('¨ú±o·sª©(git)') {
+		stage ('å–å¾—æ–°ç‰ˆ(git)') {
             steps {
 				git branch: 'master', credentialsId: '700a1e8e-746b-4dbe-b75c-d84eface67bb', url: 'https://github.com/LeoAmadeGX/FoodsReview.git'
 				
@@ -21,7 +21,7 @@ pipeline {
 					if (changeSets) {
 						for (changeSet in changeSets) {
 							for (entry in changeSet.items) {
-								// ÀË¬d­«½Æ¤H­û
+								// æª¢æŸ¥é‡è¤‡äººå“¡
 								if (entry.author && !uniqueAuthors.contains(entry.author.fullName)) {
 								    uniqueAuthors.add(entry.author.fullName)
 								    commitPersonList.add(entry.author.fullName)
@@ -45,17 +45,17 @@ pipeline {
 				}
 			}
 		}
-		stage ('¶}©l«Ø¸m') {
+		stage ('é–‹å§‹å»ºç½®') {
             steps {
 				bat '"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.exe" "FoodsReview.csproj" /p:VisualStudioVersion=15.0 /t:Restore /t:rebuild /p:PackageOutput=false /p:Configuration=Release /p:DeployOnBuild=true;PublishProfile=FolderProfile.pubxml'
 			}
 		}
-		stage ('³Æ¥÷&³¡¸p') {
+		stage ('å‚™ä»½&éƒ¨ç½²') {
             steps {
 				bat 'C:\\Jenkins\\workspace\\deploy.bat 1 FoodsReviews'
 			}
 		}		
-		stage ('°õ¦æSysLogin') {
+		stage ('åŸ·è¡ŒSysLogin') {
 			steps {
 				script {
 					try {
@@ -76,11 +76,11 @@ pipeline {
 						else
 						{
 							currentBuild.result = 'FAILURE'
-							error("HTTP Error ${response}: ½Ğ¨D¥¢±Ñ")
+							error("HTTP Error ${response}: è«‹æ±‚å¤±æ•—")
 						}
 					} catch (Exception e) {
 						currentBuild.result = 'FAILURE'
-						error("©I¥s API ®Éµo¥Í¿ù»~: ${e.message}")
+						error("å‘¼å« API æ™‚ç™¼ç”ŸéŒ¯èª¤: ${e.message}")
 					}
 				}
 			}
@@ -90,13 +90,13 @@ pipeline {
 		failure{
 		    
 			emailext to: "Leo_Tsai@systemweb.com.tw",
-				subject: "jenkins RDAP2019 ${PublishSys} µoª©¥¢±Ñ",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} ¦]¬°¥H¤UCommit : \n${CommitNote} \nµoª©¥¢±Ñ\n\n¤wºò«æ¨Ï¥Î¬Q¤é³Æ¥÷ª©¥»ÁÙ­ì¡A½Ğ¬ÛÃö¤H­ûºÉ³t³B²z\n\n§ó¦h¸ê°T½Ğ¥Ñ¦¹¬d¸ß: ${env.BUILD_URL}"
+				subject: "jenkins RDAP2019 ${PublishSys} ç™¼ç‰ˆå¤±æ•—",
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} å› ç‚ºä»¥ä¸‹Commit : \n${CommitNote} \nç™¼ç‰ˆå¤±æ•—\n\nå·²ç·Šæ€¥ä½¿ç”¨æ˜¨æ—¥å‚™ä»½ç‰ˆæœ¬é‚„åŸï¼Œè«‹ç›¸é—œäººå“¡ç›¡é€Ÿè™•ç†\n\næ›´å¤šè³‡è¨Šè«‹ç”±æ­¤æŸ¥è©¢: ${env.BUILD_URL}"
 		}
 		success {
 			emailext to: "Leo_Tsai@systemweb.com.tw",
-				subject: "jenkins RDAP2019 ${PublishSys} ·sª©¥»¤wµo¥¬",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} ¦] master ¤W¥X²{¥H¤UCommit : \n${CommitNote} \n±À°e \n\n\n²{¦b¤w§ó·s¨ì³Ì·sª©¥»¡A½Ğ½T»{¡C\n\n§ó¦h¸ê°T½Ğ¥Ñ¦¹¬d¸ß: ${env.BUILD_URL}"
+				subject: "jenkins RDAP2019 ${PublishSys} æ–°ç‰ˆæœ¬å·²ç™¼å¸ƒ",
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} å›  master ä¸Šå‡ºç¾ä»¥ä¸‹Commit : \n${CommitNote} \næ¨é€ \n\n\nç¾åœ¨å·²æ›´æ–°åˆ°æœ€æ–°ç‰ˆæœ¬ï¼Œè«‹ç¢ºèªã€‚\n\næ›´å¤šè³‡è¨Šè«‹ç”±æ­¤æŸ¥è©¢: ${env.BUILD_URL}"
 		}
 	}
 }
