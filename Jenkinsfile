@@ -38,6 +38,10 @@ pipeline {
 					CommitMsg = commitMsgList.join('\n')
 					CommitPerson = commitPersonList.join('\n')
 					CommitNote = commitNoteList.join('\n')
+
+					echo "${CommitPerson}"
+					echo "${CommitMsg}"
+					echo "${CommitNote}"
 				}
 			}
 		}
