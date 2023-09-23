@@ -28,8 +28,8 @@ pipeline {
 						commitMsgList.add("No Commit Message found in this build.")
 						commitPersonList.add("RDAdministrator")
 					}
-					CommitMsg = commitMsgList.join('\n ')
-					CommitPerson = commitPersonList.join('\n ')
+					CommitMsg = commitMsgList.join('\n')
+					CommitPerson = commitPersonList.join('\n')
 					
 					echo "${CommitPerson} Commit ${CommitMsg}"
 				}
