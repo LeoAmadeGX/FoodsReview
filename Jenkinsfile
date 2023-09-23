@@ -35,9 +35,9 @@ pipeline {
 						commitPersonList.add("RDAdministrator")
 						commitNoteList.add("RDAdministrator: Manually Execute Build Process.")
 					}
-					CommitMsg = commitMsgList.join('<br />')
-					CommitPerson = commitPersonList.join('<br />')
-					CommitNote = commitNoteList.join('<br />')
+					CommitMsg = commitMsgList.join('\n')
+					CommitPerson = commitPersonList.join('\n')
+					CommitNote = commitNoteList.join('\n')
 
 					echo "${CommitPerson}"
 					echo "${CommitMsg}"
@@ -92,13 +92,13 @@ pipeline {
 		    
 			emailext to: "Leo_Tsai@systemweb.com.tw",
 				subject: "${PublishSys} 發版失敗 on RDAP2019 #jenkins",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}<p />RDAP2019 ${PublishSys} 因為以下Commit : <br /><strong style=color:#C31111;>${CommitNote} <br />發版失敗</strong><p />已緊急使用昨日備份版本還原，請相關人員盡速處理<p />更多資訊請由此查詢: ${env.BUILD_URL}",
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\n\nRDAP2019 ${PublishSys} 因為以下Commit : \n<strong style=color:#C31111;>${CommitNote} \n發版失敗</strong>\n\n\n已緊急使用昨日備份版本還原，請相關人員盡速處理\n\n\n更多資訊請由此查詢: ${env.BUILD_URL}",
                 mimeType: 'text/html'
 		}
 		success {
 			emailext to: "Leo_Tsai@systemweb.com.tw",
 				subject: "${PublishSys} 新版本已發布 on RDAP2019 #jenkins",
-				body: "<style font-family: 微軟正黑體, PingFang, STHeiti, sans-serif, serif>${env.JOB_NAME} : ${currentBuild.currentResult}<p />RDAP2019 ${PublishSys} 因 ReleasePatch 上出現以下Commit : <br /><strong style=color:#94C1AE;>${CommitNote}</strong> <br />推送 <p /><br />現在已更新到最新版本，請確認。<p />更多資訊請由此查詢: ${env.BUILD_URL}</style>",
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\n\nRDAP2019 ${PublishSys} 因 ReleasePatch 上出現以下Commit : \n<strong style=color:#94C1AE;>${CommitNote}</strong> \n推送 \n\n\n\n現在已更新到最新版本，請確認。\n\n\n更多資訊請由此查詢: ${env.BUILD_URL}",
                 mimeType: 'text/html'
 		}
 	}
