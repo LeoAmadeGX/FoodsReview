@@ -98,7 +98,7 @@ pipeline {
 		success {
 			emailext to: "Leo_Tsai@systemweb.com.tw",
 				subject: "${PublishSys} 新版本已發布 on RDAP2019 #jenkins",
-				body: "<style font-family: 微軟正黑體, PingFang, STHeiti, sans-serif, serif;>${env.JOB_NAME} : ${currentBuild.currentResult}<p />RDAP2019 ${PublishSys} 因 ReleasePatch 上出現以下Commit : <br /><strong style=color:#94C1AE;>${CommitNote}</strong> <br />推送 <p /><br />現在已更新到最新版本，請確認。<p />更多資訊請由此查詢: ${env.BUILD_URL}</style>",
+				body: "<style font-family: 微軟正黑體, PingFang, STHeiti, sans-serif, serif>${env.JOB_NAME} : ${currentBuild.currentResult}<p />RDAP2019 ${PublishSys} 因 ReleasePatch 上出現以下Commit : <br /><strong style=color:#94C1AE;>${CommitNote}</strong> <br />推送 <p /><br />現在已更新到最新版本，請確認。<p />更多資訊請由此查詢: ${env.BUILD_URL}</style>",
                 mimeType: 'text/html'
 		}
 	}
