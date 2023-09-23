@@ -19,10 +19,10 @@ pipeline {
 						for (changeSet in changeSets) {
 							for (entry in changeSet.items) {
 								// 檢查重複人員
-								if (!commitMsgList.contains(entry.msg)) {
-									commitMsgList.add(entry.msg)
+								if (!commitMsgList.contains(entry.author.fullName)) {
+									commitPersonList.add(entry.author.fullName)
 								}
-								commitPersonList.add(entry.author.fullName)
+								commitMsgList.add(entry.msg)
 							}
 						}
 					} else {
@@ -43,7 +43,7 @@ pipeline {
 		}
 		stage ('備份&部署') {
             steps {
-				bat 'C:\\Jenkins\\workspace\\deploy.bat 1 ${PublishSys}'
+				bat 'C:\\Jenkins\\workspace\\deploy.bat 1 "${PublishSys}"'
 			}
 		}		
 		stage ('執行SysLogin') {
