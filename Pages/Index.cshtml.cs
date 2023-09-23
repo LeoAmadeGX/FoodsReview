@@ -22,9 +22,11 @@ namespace FoodsReview.Pages
             {
                 try
                 {
-                    Review = await _context.FoodsReview
-                                    .OrderBy(x => DateTime.Parse(x.RecordTime.ToString()))
-                                    .ToListAsync();
+                    List<Review> reviews = await _context.FoodsReview.ToListAsync();
+
+
+
+                    Review = reviews.OrderBy(x => x.RecordTime).ToList();
                 }
                 catch
                 {
