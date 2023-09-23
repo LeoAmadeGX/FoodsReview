@@ -91,12 +91,12 @@ pipeline {
 		    bat 'C:\\WebsiteBackup\\RestoreYesterDay.bat FoodsReviews'
 		    
 			emailext to: "Leo_Tsai@systemweb.com.tw",
-				subject: "jenkins RDAP2019 ${PublishSys} 發版失敗",
+				subject: "RDAP2019 ${PublishSys} 發版失敗 #jenkins",
 				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} 因為以下Commit : \n${CommitNote} \n發版失敗\n\n已緊急使用昨日備份版本還原，請相關人員盡速處理\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
 		}
 		success {
 			emailext to: "Leo_Tsai@systemweb.com.tw",
-				subject: "jenkins RDAP2019 ${PublishSys} 新版本已發布",
+				subject: "RDAP2019 ${PublishSys} 新版本已發布 #jenkins",
 				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} 因 master 上出現以下Commit : \n${CommitNote} \n推送 \n\n\n現在已更新到最新版本，請確認。\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
 		}
 	}
