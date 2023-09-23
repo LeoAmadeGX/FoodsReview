@@ -3,6 +3,7 @@ pipeline {
 	environment {
         CommitMsg = ""
         CommitPerson = ""
+		PublishSys = "FoodsReviews"
     }
     stages {
 		stage ('取得新版(git)') {
@@ -42,7 +43,7 @@ pipeline {
 		}
 		stage ('備份&部署') {
             steps {
-				bat 'C:\\Jenkins\\workspace\\deploy.bat 1 FoodsReviews'
+				bat 'C:\\Jenkins\\workspace\\deploy.bat 1 ${PublishSys}'
 			}
 		}		
 		stage ('執行SysLogin') {
@@ -80,13 +81,13 @@ pipeline {
 		failure{
 		    
 			emailext to: "Leo_Tsai@systemweb.com.tw",
-				subject: "jenkins RDAP2019 FoodsReviews 發版失敗",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 FoodsReviews 由以下人員 : \n${CommitPerson} \n推送的以下commit : \n${CommitMsg} \n\n發版失敗\n已緊急使用昨日備份版本還原，請相關人員盡速處理\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
+				subject: "jenkins RDAP2019 ${PublishSys} 發版失敗",
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} 由以下人員 : \n${CommitPerson} \n推送的以下commit : \n${CommitMsg} \n\n發版失敗\n已緊急使用昨日備份版本還原，請相關人員盡速處理\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
 		}
 		success {
 			emailext to: "Leo_Tsai@systemweb.com.tw",
-				subject: "jenkins RDAP2019 FoodsReviews 新版本已發布",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 FoodsReviews 因 master 上由以下人員 : \n${CommitPerson} \n推送的以下commit : \n${CommitMsg} \n\n\n現在已更新到最新版本，請確認。\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
+				subject: "jenkins RDAP2019 ${PublishSys} 新版本已發布",
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\nRDAP2019 ${PublishSys} 因 master 上由以下人員 : \n${CommitPerson} \n推送的以下commit : \n${CommitMsg} \n\n\n現在已更新到最新版本，請確認。\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
 		}
 	}
 }
