@@ -92,12 +92,12 @@ pipeline {
 		    
 			emailext to: "Leo_Tsai@systemweb.com.tw",
 				subject: "${PublishSys} 發版失敗 on RDAP2019 #jenkins",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\n\nRDAP2019 ${PublishSys} 因為以下Commit : \n\n<strong style=color:#C31111;>${CommitNote} \n發版失敗</strong>\n\n\n已緊急使用昨日備份版本還原，請相關人員盡速處理\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\n\nRDAP2019 ${PublishSys} 因為以下Commit : \n\n${CommitNote} \n發版失敗\n\n\n已緊急使用昨日備份版本還原，請相關人員盡速處理\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
 		}
 		success {
 			emailext to: "Leo_Tsai@systemweb.com.tw",
 				subject: "${PublishSys} 新版本已發布 on RDAP2019 #jenkins",
-				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\n\nRDAP2019 ${PublishSys} 因 ReleasePatch 上出現以下Commit : \n\n<strong style=color:#94C1AE;>${CommitNote}</strong> \n推送 n\n\n現在已更新到最新版本，請確認。\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
+				body: "${env.JOB_NAME} : ${currentBuild.currentResult}\n\n\nRDAP2019 ${PublishSys} 因 ReleasePatch 上出現以下Commit : \n\n${CommitNote} \n推送 n\n\n現在已更新到最新版本，請確認。\n\n更多資訊請由此查詢: ${env.BUILD_URL}"
 		}
 	}
 }
