@@ -34,7 +34,7 @@ pipeline {
 					} else {
 						commitMsgList.add("Manually Execute Build Process.")
 						commitPersonList.add("RDAdministrator")
-						commitNoteList.add(RDAdministrator ": " + Manually Execute Build Process.)
+						commitNoteList.add("RDAdministrator: Manually Execute Build Process.")
 					}
 					CommitMsg = commitMsgList.join('\n')
 					CommitPerson = commitPersonList.join('\n')
