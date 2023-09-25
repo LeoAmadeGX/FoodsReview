@@ -1,5 +1,8 @@
 pipeline {
-    agent any
+    agent any    
+	triggers {
+        pollSCM('0 17 * * *') 
+    }
 	environment {
         CommitMsg = ""
         CommitPerson = ""
@@ -55,23 +58,15 @@ pipeline {
 				bat 'C:\\Jenkins\\workspace\\deploy.bat 1 FoodsReviews'
 			}
 		}		
-		stage ('執行SysLogin') {
+		stage ('取得網站狀態') {
 			steps {
 				script {
-					try {
-						// POST
-						def post = new URL("http://localhost/AdminAPI/v2/api/SysLogin").openConnection();
-						def message = '{"message":"I am Jenkins Test."}'
-						post.setRequestMethod("POST")
-						post.setDoOutput(true)
-						post.setRequestProperty("Content-Type", "application/json")
-						post.setRequestProperty("Accept-Language", "zh-TW")
-						post.setRequestProperty("client_id", "WFPAPIPublicClient")
-						post.getOutputStream().write(message.getBytes("UTF-8"));
-						def postRC = post.getResponseCode();
-						println(postRC);
-						if(postRC.equals(200)) {
-							println(post.getInputStream().getText());
+					try {// GET
+						def get = new URL("http://rdap2019/FoodsReviews/").openConnection();
+						def getRC = get.getResponseCode();
+						println(getRC);
+						if (getRC.equals(200)) {
+						    println(get.getInputStream().getText());
 						}
 						else
 						{
