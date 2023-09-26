@@ -20,6 +20,7 @@ pipeline {
 					def commitMsgList = []
 					def commitPersonList = []
 					def commitNoteList = []
+					def commitTimeList = []
 					
 					if (changeSets) {
 						for (changeSet in changeSets) {
@@ -29,8 +30,10 @@ pipeline {
 								    uniqueAuthors.add(entry.author.fullName)
 								    commitPersonList.add(entry.author.fullName)
 								}
+								def commitTimestamp = entry.timestamp
+                                commitTimeList.add(commitTimestamp.toString())
 								commitMsgList.add(entry.msg)
-								commitNoteList.add(entry.author.fullName + ": " + entry.msg)
+								commitNoteList.add(commitTimestamp.toString() + " " + entry.author.fullName + ": " + entry.msg)
 							}
 						}
 					} else {
