@@ -31,9 +31,10 @@ pipeline {
 								    commitPersonList.add(entry.author.fullName)
 								}
 								def commitTimestamp = entry.timestamp
-                                commitTimeList.add(commitTimestamp.toString())
+                                def formattedTime = new Date(commitTimestamp).format('yyyy/MM/dd HH:mm:ss')
+                                commitTimeList.add(formattedTime)
 								commitMsgList.add(entry.msg)
-								commitNoteList.add(commitTimestamp.toString() + " " + entry.author.fullName + ": " + entry.msg)
+								commitNoteList.add(formattedTime + " " + entry.author.fullName + ": " + entry.msg)
 							}
 						}
 					} else {
