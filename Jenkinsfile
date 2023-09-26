@@ -1,7 +1,7 @@
 pipeline {
     agent any    
 	triggers {
-        pollSCM('* * * * *') 
+        pollSCM('0 17 * * *') 
     }
 	environment {
         CommitMsg = ""
@@ -33,8 +33,9 @@ pipeline {
 								def commitTimestamp = entry.timestamp
                                 def formattedTime = new Date(commitTimestamp).format('yyyy/MM/dd HH:mm:ss')
                                 commitTimeList.add(formattedTime)
+
 								commitMsgList.add(entry.msg)
-								commitNoteList.add(formattedTime + " " + entry.author.fullName + ": " + entry.msg)
+								commitNoteList.add(entry.author.fullName + ": " + entry.msg + "  " + formattedTime)
 							}
 						}
 					} else {
