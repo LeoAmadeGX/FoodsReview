@@ -1,7 +1,7 @@
 pipeline {
     agent any    
 	triggers {
-        pollSCM('0 17 * * *') 
+        pollSCM('* * * * *') 
     }
 	environment {
         CommitMsg = ""
