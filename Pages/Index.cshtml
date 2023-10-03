@@ -8,6 +8,7 @@
 <h1>公司「不訂」便當清單</h1>
 
 <p></p>
+<input type="text" id="filterInput" placeholder="篩選店家名稱...">
 <table class="table">
     <thead>
         <tr>
@@ -61,3 +62,26 @@
 <p>
     <a asp-page="Create" class="btn btn-primary">新增</a>
 </p>
+<script>
+    // 監聽輸入框的變化事件
+    document.getElementById("filterInput").addEventListener("input", function () {
+        var inputValue = this.value.toLowerCase(); // 將輸入值轉為小寫，以進行不區分大小寫的模糊查詢
+        var rows = document.querySelectorAll("tbody tr");
+
+        // 顯示或隱藏符合模糊查詢條件的列表項目
+        rows.forEach(function (row) {
+            var convenientCell = row.querySelector("td:nth-child(1)");
+            var convenientText = convenientCell.textContent.toLowerCase();
+
+            // 使用 indexOf 方法來判斷輸入值是否包含在店家名稱中
+            if (convenientText.indexOf(inputValue) !== -1) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+</script>
+
+
+
