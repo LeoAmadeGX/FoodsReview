@@ -35,7 +35,6 @@ namespace FoodsReview.Pages
             {
                 return Page();
             }
-
             if (!Review.RecordTime.HasValue)
                 Review.RecordTime = DateTime.UtcNow;
 
