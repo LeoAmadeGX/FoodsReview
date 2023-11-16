@@ -27,7 +27,9 @@ namespace FoodsReview.Models
         /// </summary>
         [DisplayName("備註")]
         public string Memo { get; set; }
-
+        /// <summary>
+        /// 訂餐時間
+        /// </summary>
         [DisplayName("訂餐時間")]
         public DateTime? RecordTime { get; set; }
     }
