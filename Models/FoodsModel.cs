@@ -7,7 +7,9 @@ namespace FoodsReview.Models
     {
         [Key]
         public int Id { get; set; }
-
+        /// <summary>
+        /// 店家名稱
+        /// </summary>
         [DisplayName("店家名稱")]
         public string Convenient { get; set; }
 
