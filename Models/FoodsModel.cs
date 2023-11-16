@@ -17,7 +17,9 @@ namespace FoodsReview.Models
         /// </summary>
         [DisplayName("餐點名稱")]
         public string FoodName { get; set; }
-
+        /// <summary>
+        /// 紀錄者
+        /// </summary>
         [DisplayName("紀錄者")]
         public string Recorder { get; set; }
 
