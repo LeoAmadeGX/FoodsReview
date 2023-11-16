@@ -22,7 +22,9 @@ namespace FoodsReview.Models
         /// </summary>
         [DisplayName("紀錄者")]
         public string Recorder { get; set; }
-
+        /// <summary>
+        /// 備註
+        /// </summary>
         [DisplayName("備註")]
         public string Memo { get; set; }
 
