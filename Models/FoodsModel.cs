@@ -12,7 +12,9 @@ namespace FoodsReview.Models
         /// </summary>
         [DisplayName("店家名稱")]
         public string Convenient { get; set; }
-
+        /// <summary>
+        /// 餐點名稱
+        /// </summary>
         [DisplayName("餐點名稱")]
         public string FoodName { get; set; }
 
