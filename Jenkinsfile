@@ -67,7 +67,7 @@ pipeline {
 			steps {
 				script {
 					try {// GET
-						def get = new URL("http://rdap2019/FoodsReviews/").openConnection();
+						def get = new URL("https://rdap2019/FoodsReviews/").openConnection();
 						def getRC = get.getResponseCode();
 						println(getRC);
 						if (getRC.equals(200)) {
